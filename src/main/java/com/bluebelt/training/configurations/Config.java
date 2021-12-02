@@ -7,33 +7,57 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
+@RequiredArgsConstructor
 @Configuration
 @EnableJpaAuditing // khởi chạy CreatedDate, LastModifiedDate
 public class Config {
 
-    @Bean
-    CommandLineRunner iniCommandLineRunner(ProductRepository productDAO) { // Code first
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
+    private final ProductRepository productRepository;
 
-                Product productA = Product.builder().title("Product A").importPrice(BigDecimal.valueOf(3000)).description("Description product A").build();
-
-                log.info("Insert data: " + productDAO.save(productA));
-
-            }
-        };
+    @PostConstruct
+    public void initData() {
+        // Insert 100 products vào H2 Database sau khi
+        // DatasourceConfig được khởi tạo
+        final Random r = new Random();
+        productRepository.saveAll(IntStream.range(0, 100)
+                .mapToObj(i -> Product.builder()
+                        .title("Product-" + i)
+                        .importPrice(BigDecimal.valueOf(r.nextInt() * 1000))
+                        .description("Description product " + i)
+                        .build())
+                .collect(Collectors.toList())
+        );
+        log.info("INSERT 100 PRODUCTS SUCCESSFUL!!!");
     }
+
+//    @Bean
+//    CommandLineRunner iniCommandLineRunner(ProductRepository productDAO) { // Code first
+//        return new CommandLineRunner() {
+//            @Override
+//            public void run(String... args) throws Exception {
+//
+//                Product productA = Product.builder().title("Product A").importPrice(BigDecimal.valueOf(3000)).description("Description product A").build();
+//
+//                log.info("Insert data: " + productDAO.save(productA));
+//
+//            }
+//        };
+//    }
 
     @Bean
     public OpenAPI customOpenAPI() {

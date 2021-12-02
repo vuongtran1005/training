@@ -47,11 +47,11 @@ public abstract class BaseEntity {
     private String updatedBy;
 
     @Enumerated(EnumType.STRING)
-    private EStatus status;
+    private EStatus status = EStatus.ACTIVE;
 
     @JsonProperty("is_deleted")
     @Enumerated(EnumType.STRING)
-    private EBoolean isDelete;
+    private EBoolean isDeleted = EBoolean.FALSE;
 
     @JsonProperty("deleted_at")
     private Date deletedAt;

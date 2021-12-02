@@ -47,6 +47,7 @@
             <version>1.5.13</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+        <!-- Auto generate ra các class Meta Model use Criteria API-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
