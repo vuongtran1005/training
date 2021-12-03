@@ -1,8 +1,8 @@
 package com.bluebelt.training.controllers;
 
-import com.bluebelt.training.entities.Product;
+import com.bluebelt.training.entities.Collection;
 import com.bluebelt.training.payload.ResponseObject;
-import com.bluebelt.training.services.ProductService;
+import com.bluebelt.training.services.CollectionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,22 +12,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/products")
-@Tag(name = "product")
+@RequestMapping("/api/v1/collections")
+@Tag(name = "collection")
 @RequiredArgsConstructor
-public class ProductController {
+public class CollectionController {
 
-    private final ProductService productService;
+    private final CollectionService collectionService;
 
-    @Operation(description = "Xem danh sách sản phẩm", responses = {
-            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Product.class))),
+    @Operation(description = "Xem danh sách danh mục", responses = {
+            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Collection.class))),
                     responseCode = "200")
     })
     @ApiResponses(value = {
@@ -41,12 +40,12 @@ public class ProductController {
     public ResponseEntity<?> getAll() {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.getAll()).build());
+                .body(new ResponseObject().builder().success(true).data(collectionService.getAll()).build());
 
     }
 
-    @Operation(description = "Lấy một sản phẩm theo id", responses = {
-            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Product.class))),
+    @Operation(description = "Lấy một danh mục theo id", responses = {
+            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Collection.class))),
                     responseCode = "200")
     })
     @ApiResponses(value = {
@@ -60,12 +59,12 @@ public class ProductController {
     public ResponseEntity<?> getById(@PathVariable Integer id) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.getById(id)).build());
+                .body(new ResponseObject().builder().success(true).data(collectionService.getById(id)).build());
 
     }
 
-    @Operation(description = "Tạo mới một sản phẩm", responses = {
-            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Product.class))),
+    @Operation(description = "Tạo mới một danh mục", responses = {
+            @ApiResponse(content = @Content(array = @ArraySchema(schema = @Schema(implementation = Collection.class))),
                     responseCode = "200")
     })
     @ApiResponses(value = {
@@ -76,10 +75,10 @@ public class ProductController {
     })
 
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody Product product) {
+    public ResponseEntity<?> create(@RequestBody Collection collection) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.create(product)).build());
+                .body(new ResponseObject().builder().success(true).data(collectionService.create(collection)).build());
 
     }
 

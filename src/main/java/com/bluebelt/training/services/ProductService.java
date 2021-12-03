@@ -35,9 +35,4 @@ public class ProductService {
         return product;
     }
 
-//    public Optional<Product> delete(Integer id) {
-//        Specification conditions = Specification.where(ProductSpecification.deleteProduct(id));
-//        return productDAO.findOne(conditions);
-//    }
-
 }

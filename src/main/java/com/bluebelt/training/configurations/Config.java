@@ -1,6 +1,9 @@
 package com.bluebelt.training.configurations;
 
+import com.bluebelt.training.entities.Collection;
 import com.bluebelt.training.entities.Product;
+import com.bluebelt.training.entities.common.Slug;
+import com.bluebelt.training.repositories.CollectionRepository;
 import com.bluebelt.training.repositories.ProductRepository;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -29,20 +32,35 @@ public class Config {
 
     private final ProductRepository productRepository;
 
+    private final CollectionRepository collectionRepository;
+
     @PostConstruct
     public void initData() {
         // Insert 100 products vào H2 Database sau khi
         // DatasourceConfig được khởi tạo
         final Random r = new Random();
-        productRepository.saveAll(IntStream.range(0, 100)
+        productRepository.saveAll(IntStream.range(0, 20)
                 .mapToObj(i -> Product.builder()
                         .title("Product-" + i)
-                        .importPrice(BigDecimal.valueOf(r.nextInt() * 1000))
                         .description("Description product " + i)
+                        .seo(Slug.setSlugify("Product-" + i))
+                        .tags("tag")
+                        .collections(null)
                         .build())
                 .collect(Collectors.toList())
         );
-        log.info("INSERT 100 PRODUCTS SUCCESSFUL!!!");
+        log.info("INSERT 20 PRODUCTS SUCCESSFUL!!!");
+
+        collectionRepository.saveAll(IntStream.range(0, 20)
+                .mapToObj(i -> Collection.builder()
+                        .title("Collection" + i)
+                        .description("Description collection " + i)
+                        .sortOrder("BEST-SELLING")
+                        .products(null)
+                        .build()
+                ).collect(Collectors.toList())
+        );
+        log.info("INSERT 20 COLLECTION SUCCESSFUL!!!");
     }
 
 //    @Bean

@@ -27,7 +27,6 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "Product UUID in  the database")
     private Integer id;
 
     @CreatedDate
@@ -52,11 +51,5 @@ public abstract class BaseEntity {
     @JsonProperty("is_deleted")
     @Enumerated(EnumType.STRING)
     private EBoolean isDeleted = EBoolean.FALSE;
-
-    @JsonProperty("deleted_at")
-    private Date deletedAt;
-
-    @JsonProperty("deleted_by")
-    private String deletedBy;
 
 }
