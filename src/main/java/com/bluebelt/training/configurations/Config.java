@@ -1,10 +1,13 @@
 package com.bluebelt.training.configurations;
 
 import com.bluebelt.training.entities.Collection;
+import com.bluebelt.training.entities.Option;
 import com.bluebelt.training.entities.Product;
 import com.bluebelt.training.entities.common.Slug;
 import com.bluebelt.training.repositories.CollectionRepository;
+import com.bluebelt.training.repositories.OptionRepository;
 import com.bluebelt.training.repositories.ProductRepository;
+import com.bluebelt.training.repositories.impl.BaseRepositoryImpl;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -16,6 +19,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -25,6 +29,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
+@EnableJpaRepositories(basePackages = "com.bluebelt.training.*", repositoryBaseClass = BaseRepositoryImpl.class, repositoryImplementationPostfix = "Impl") // kích hoạt BaseRepositoryImpl
 @RequiredArgsConstructor
 @Configuration
 @EnableJpaAuditing // khởi chạy CreatedDate, LastModifiedDate
@@ -34,6 +39,8 @@ public class Config {
 
     private final CollectionRepository collectionRepository;
 
+    private final OptionRepository optionRepository;
+
     @PostConstruct
     public void initData() {
         // Insert 100 products vào H2 Database sau khi
@@ -41,26 +48,32 @@ public class Config {
         final Random r = new Random();
         productRepository.saveAll(IntStream.range(0, 20)
                 .mapToObj(i -> Product.builder()
-                        .title("Product-" + i)
+                        .title("Product " + i)
                         .description("Description product " + i)
                         .seo(Slug.setSlugify("Product-" + i))
                         .tags("tag")
-                        .collections(null)
                         .build())
                 .collect(Collectors.toList())
         );
         log.info("INSERT 20 PRODUCTS SUCCESSFUL!!!");
 
-        collectionRepository.saveAll(IntStream.range(0, 20)
+        collectionRepository.saveAll(IntStream.range(0, 10)
                 .mapToObj(i -> Collection.builder()
-                        .title("Collection" + i)
+                        .title("Collection " + i)
                         .description("Description collection " + i)
                         .sortOrder("BEST-SELLING")
-                        .products(null)
                         .build()
                 ).collect(Collectors.toList())
         );
         log.info("INSERT 20 COLLECTION SUCCESSFUL!!!");
+
+//        optionRepository.saveAll(IntStream.range(0, 10)
+//                .mapToObj(i -> Option.builder()
+//                        .title("Option " + i)
+//                        .build()
+//                ).collect(Collectors.toList())
+//        );
+//        log.info("INSERT 20 OPTION SUCCESSFUL!!!");
     }
 
 //    @Bean

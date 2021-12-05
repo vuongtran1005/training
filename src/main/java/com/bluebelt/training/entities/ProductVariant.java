@@ -15,14 +15,17 @@ public class ProductVariant extends BaseEntity{
     @JsonProperty("bar_code")
     private String barCode;
 
+    @JsonProperty("sku")
     private String sku;
 
+    @JsonProperty("taxable")
     @Enumerated(EnumType.STRING)
     private EBoolean taxable = EBoolean.FALSE;
 
     @JsonProperty("tax_code")
     private String taxCode;
 
+    @JsonProperty("title")
     private String title;
 
     @JsonProperty("import_price")

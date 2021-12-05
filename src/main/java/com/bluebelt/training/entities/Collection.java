@@ -1,6 +1,5 @@
 package com.bluebelt.training.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -16,11 +15,13 @@ import java.util.Set;
 @Table(name = "tbl_collection")
 public class Collection extends BaseEntity{
 
+    @JsonProperty("title")
     private String title;
 
     @JsonProperty("sort_order")
     private String sortOrder;
 
+    @JsonProperty("description")
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -28,7 +29,7 @@ public class Collection extends BaseEntity{
     @JoinTable(name = "tbl_collection_product",
     joinColumns = @JoinColumn(name = "collection_id"),
     inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonManagedReference
+//    @JsonManagedReference
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Không sử dụng trong toString()
     private Set<Product> products;

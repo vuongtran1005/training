@@ -1,5 +1,6 @@
 package com.bluebelt.training.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,8 +17,10 @@ public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Integer id;
 
+    @JsonProperty("title")
     private String title;
 
     @ManyToOne
