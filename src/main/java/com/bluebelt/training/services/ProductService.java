@@ -51,7 +51,7 @@ public class ProductService {
                 .description(productRequest.getDescription())
 
                 .collections(productRequest.getCollectionsId().stream()
-                        .map(id -> collectionDAO.findById(id).map(exist -> exist)
+                        .map(id -> collectionDAO.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException().builder()
                                 .resourceName(COLLECTION)
                                 .fieldName(ID)
@@ -61,7 +61,7 @@ public class ProductService {
 
                 .seo(Slug.setSlugify(productRequest.getTitle()))
                 .options(productRequest.getOptionsId().stream()
-                        .map(id -> optionDAO.findById(id).map(exist -> exist)
+                        .map(id -> optionDAO.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException().builder()
                                 .resourceName(OPTION)
                                 .fieldName(ID)
@@ -85,7 +85,7 @@ public class ProductService {
                 .description(productRequest.getDescription())
 
                 .collections(productRequest.getCollectionsId().stream()
-                        .map(id -> collectionDAO.findById(id).map(exist -> exist)
+                        .map(id -> collectionDAO.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException().builder()
                                         .resourceName(COLLECTION)
                                         .fieldName(ID)
@@ -95,7 +95,7 @@ public class ProductService {
 
                 .seo(Slug.setSlugify(productRequest.getTitle()))
                 .options(productRequest.getOptionsId().stream()
-                        .map(id -> optionDAO.findById(id).map(exist -> exist)
+                        .map(id -> optionDAO.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException().builder()
                                         .resourceName(OPTION)
                                         .fieldName(ID)

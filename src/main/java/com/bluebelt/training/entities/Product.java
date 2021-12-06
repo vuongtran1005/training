@@ -1,6 +1,5 @@
 package com.bluebelt.training.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -33,7 +32,6 @@ public class Product extends BaseEntity{
     private String tags;
 
     @ManyToMany(mappedBy = "products")
-//    @JsonBackReference
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Không sử dụng trong toString()
     private Set<Collection> collections;

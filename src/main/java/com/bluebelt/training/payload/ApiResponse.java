@@ -1,20 +1,23 @@
 package com.bluebelt.training.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@With
 @SuperBuilder(toBuilder = true)
-public class ResponseObject {
+public class ApiResponse implements Serializable {
 
     @JsonProperty("success")
     private Boolean success;
 
-    @JsonProperty("data")
-    private Object data;
+    @JsonProperty("message")
+    private String message;
 
 }

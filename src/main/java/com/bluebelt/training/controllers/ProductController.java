@@ -44,7 +44,7 @@ public class ProductController {
             @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER) int page,
             @RequestParam(value = "per_page", defaultValue = DEFAULT_PER_PAGE) int per_page,
             @RequestParam(value = "sort", defaultValue = DEFAULT_SORT) String sort) {
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject().builder().success(true)
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject().builder().success(Boolean.TRUE)
                 .data(productService.getAll(page, per_page, sort)).build());
     }
 
@@ -63,7 +63,7 @@ public class ProductController {
     public ResponseEntity<?> getById(@PathVariable Integer id) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.getById(id)).build());
+                .body(new ResponseObject().builder().success(Boolean.TRUE).data(productService.getById(id)).build());
     }
 
     @Operation(description = "Tạo mới một sản phẩm", responses = {
@@ -81,7 +81,7 @@ public class ProductController {
     public ResponseEntity<?> add(@RequestBody ProductRequest productRequest) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.add(productRequest)).build());
+                .body(new ResponseObject().builder().success(Boolean.TRUE).data(productService.add(productRequest)).build());
 
     }
 
@@ -99,7 +99,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody ProductRequest productRequest) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(productService.update(id, productRequest)).build());
+                .body(new ResponseObject().builder().success(Boolean.TRUE).data(productService.update(id, productRequest)).build());
     }
 
 

@@ -27,9 +27,8 @@ public class Collection extends BaseEntity{
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // LAZY để tránh việc truy xuất dữ liệu không cần thiết. Lúc nào cần thì mới query
     @JoinTable(name = "tbl_collection_product",
-    joinColumns = @JoinColumn(name = "collection_id"),
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    @JsonManagedReference
+    joinColumns = @JoinColumn(name = "collection_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Không sử dụng trong toString()
     private Set<Product> products;

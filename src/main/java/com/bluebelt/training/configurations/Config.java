@@ -23,6 +23,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -94,7 +95,7 @@ public class Config {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 // Thiết lập các server dùng để test api
-                .servers(List.of(
+                .servers(Arrays.asList(
                         new Server().url("http://localhost:8080"),
                         new Server().url("http://localhost:8090")
                 ))

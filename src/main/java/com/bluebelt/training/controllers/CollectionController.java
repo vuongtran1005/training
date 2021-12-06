@@ -40,7 +40,7 @@ public class CollectionController {
     public ResponseEntity<?> getAll() {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject().builder().success(true).data(collectionService.getAll()).build());
+                .body(new ResponseObject().builder().success(Boolean.TRUE).data(collectionService.getAll()).build());
 
     }
 
